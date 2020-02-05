@@ -5,7 +5,7 @@ const path = require('path');
 const root = '../';
 
 const read_number = require('./APIs/read-number');
-app.route('/read-number/:number')
+app.route('/read-number')
 	.get(read_number.get);
 
 module.exports = app;

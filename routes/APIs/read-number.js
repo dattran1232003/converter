@@ -1,6 +1,8 @@
 const path = require('path');
 const root = '../../';
+const R = require('ramda');
 
+const getAllNumberFromText = R.compose(R.join(''), R.match(/\d/g));
 const { 
 	getEachClassString, 
 	getFullStringNumber, 
@@ -9,7 +11,7 @@ const {
 
 module.exports = {
 	get : (req, res) => {
-		const number = req.params.number;
+		const number = getAllNumberFromText(req.query['number']);
 		console.log(number);
 		res.json({
 			number,

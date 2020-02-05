@@ -7,23 +7,25 @@ const divider = R.curry((dvFor, number, arr=[]) => {
 		newArr.reverse() : divider(dvFor, Math.floor(leftNumber), newArr);
 });
 const dozensSub = (number) => (number === 1) ? ' ' : ' mươi ';
+const readZero = (location, beforeNumber) => (location === 1) ? 'không' : '';
 const readOne  = (location, beforeNumber) => (location === 2) ? 'mười' : (location === 3) ? (beforeNumber <= 1 ? 'một' : 'mốt') : 'một';
 const readFour = (location, beforeNumber) => (location === 3) ? (beforeNumber <= 1 ? 'bốn' : 'tư') : 'bốn';
 const readFive = (location, beforeNumber) => (location === 3 && (beforeNumber > 0 || beforeNumber <= 9)) ? 'lăm' : 'năm';
 const readANumber = R.curry((number, location=0, beforeNumber=0) => {
-	switch(number) {
-		case 0: return 'linh';
-		case 1: return readOne(location, beforeNumber);
-		case 2: return 'hai';
-		case 3: return 'ba';
-		case 4: return readFour(location, beforeNumber);
-		case 5: return readFive(location, beforeNumber);
-		case 6: return 'sáu';
-		case 7: return 'bảy';
-		case 8: return 'tám';
-		case 9: return 'chín';
+	const checker = {
+		0: readZero(location, beforeNumber),
+		1: readOne(location, beforeNumber),
+		2: 'hai',
+		3: 'ba',
+		4: readFour(location, beforeNumber),
+		5: readFive(location, beforeNumber),
+		6: 'sáu',
+		7: 'bảy',
+		8: 'tám',
+		9: 'chín'
 	}
-});
+	return checker[number];
+})
 const readArr1Numbers = (arrN) => (arrN.length === 1) ? readANumber(arrN[0], 1) : arrN;
 const readArr2Numbers = (arrN) => (arrN.length === 2) ? readANumber(arrN[0], 2) + dozensSub(arrN[0]) + readANumber(arrN[1], 3, arrN[0]) : arrN;
 const readArr3Numbers = (arrN) => {

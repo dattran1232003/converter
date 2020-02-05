@@ -1,7 +1,6 @@
 const socket = io();
 
-const separateNumbersFromText = R.compose(R.join(''), R.match(/\d/g));
-const sendData = () => { const number = separateNumbersFromText($('#input').val()) || 1; socket.emit('client-send-number', number); }
+const sendData = () => { const number = $('#input').val() || 1; socket.emit('client-send-number', number); }
 const split = R.join(' ');
 
 $(document).ready( () => {
